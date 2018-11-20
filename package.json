@@ -7,8 +7,15 @@
     "test": "jest"
   },
   "dependencies": {
+    "firebase": "^4.9.1",
     "react": "16.6.1",
-    "react-native": "0.57.5"
+    "react-native": "0.57.5",
+    "react-native-elements": "^0.19.1",
+    "react-navigation": "^3.0.0",
+    "react-redux": "^5.1.1",
+    "redux": "^4.0.1",
+    "redux-persist": "^5.10.0",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
