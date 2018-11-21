@@ -1,5 +1,6 @@
 {
   "name": "Tindor",
+  "rnpm": { "assets": [ "source/asserts/fonts" ] },
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -11,7 +12,8 @@
     "react": "16.6.1",
     "react-native": "0.57.5",
     "react-native-elements": "^0.19.1",
-    "react-navigation": "^3.0.0",
+    "react-native-vector-icons": "^6.1.0",
+    "react-navigation": "^2.18.2",
     "react-redux": "^5.1.1",
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0",
@@ -20,6 +22,7 @@
   "devDependencies": {
     "babel-eslint": "^10.0.1",
     "babel-jest": "23.6.0",
+    "eslint": "^5.8.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
