@@ -15,7 +15,7 @@ export default class Home extends Component {
       return (
         <Icon
           name={iconName}
-          size={25}
+          size={30}
           style={focused ? { color: '#fe5068' } : { color: '#dadfe6' }}
         />
       );

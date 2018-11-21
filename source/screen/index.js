@@ -5,9 +5,11 @@ import Home from './Home';
 import Profile from './Profile';
 import Messenge from './Message';
 
+import { TAB_BAR_HEIGHT } from '../utils';
+
 const styles = StyleSheet.create({
   tabBar: {
-    height: 50,
+    height: TAB_BAR_HEIGHT,
     backgroundColor: 'white',
   },
   icon: {

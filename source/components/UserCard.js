@@ -1,24 +1,26 @@
 import React, { Component } from 'react';
 import {
-  View,
+  StyleSheet,
   Image,
 } from 'react-native';
-import { Card } from 'react-native-elements';
+
+const styles = StyleSheet.create({
+  image: {
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode: 'cover',
+    borderRadius: 10,
+  },
+});
 
 export default class UserCard extends Component {
   render() {
-    const { image, children } = this.props;
+    const { image } = this.props;
 
     return (
-
       <Image
-        style={{
-          flex: 1,
-          height: null,
-          width: null,
-          resizeMode: 'cover',
-          borderRadius: 20,
-        }}
+        style={styles.image}
         source={image}
       />
     );

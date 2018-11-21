@@ -3,26 +3,14 @@ import {
   View,
   Animated,
   PanResponder,
-  Dimensions,
-  StyleSheet,
   UIManager,
   LayoutAnimation,
 } from 'react-native';
 
-const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window').height;
-const SWIPE_THRESHOLD = 4 * SCREEN_WIDTH / 10;
-const SWIPE_OUT_DURATION = 375;
+import { SCREEN_WIDTH } from '../utils';
 
-const styles = StyleSheet.create({
-  cardStyle: {
-    position: 'absolute',
-    width: SCREEN_WIDTH,
-    padding: 10,
-    elevation: 4,
-    height: SCREEN_HEIGHT - 120,
-  },
-});
+const SWIPE_THRESHOLD = SCREEN_WIDTH / 2;
+const SWIPE_OUT_DURATION = 375;
 
 class SwipeDeck extends Component {
   constructor(props) {
@@ -73,18 +61,45 @@ class SwipeDeck extends Component {
     this.setState(prevState => ({ deckIndex: prevState.deckIndex + 1 }));
   }
 
-  getCardStyle() {
-    const { position } = this;
-    const rotate = position.x.interpolate({
-      inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
+  getCurrentCardStyle() {
+    const { cardStyle } = this.props;
+    const rotate = this.position.x.interpolate({
+      inputRange: [-SWIPE_THRESHOLD, 0, SWIPE_THRESHOLD],
       outputRange: ['-10deg', '0deg', '10deg'],
       extrapolate: 'clamp',
     });
 
-    return {
-      ...position.getLayout(),
-      transform: [{ rotate }],
-    };
+    return [
+      cardStyle,
+      {
+        ...this.position.getLayout(),
+        zIndex: 1,
+        transform: [{ rotate }],
+      },
+    ];
+  }
+
+  getNextCardStyle(index) {
+    const { cardStyle } = this.props;
+    const opacity = this.position.x.interpolate({
+      inputRange: [-SWIPE_THRESHOLD, 0, SWIPE_THRESHOLD],
+      outputRange: [1, 0, 1],
+      extrapolate: 'clamp',
+    });
+    const scale = this.position.x.interpolate({
+      inputRange: [-SWIPE_THRESHOLD, 0, SWIPE_THRESHOLD],
+      outputRange: [1, 0.8, 1],
+      extrapolate: 'clamp',
+    });
+
+    return [
+      cardStyle,
+      {
+        zIndex: index * -1,
+        opacity,
+        transform: [{ scale }],
+      },
+    ];
   }
 
   forceSwipe(direction) {
@@ -96,7 +111,7 @@ class SwipeDeck extends Component {
     }).start(() => this.onSwipeComplete(direction));
   }
 
-  renderCards() {
+  renderListCards() {
     const { data, renderCard, renderNoMoreCard } = this.props;
     const { deckIndex } = this.state;
 
@@ -105,18 +120,15 @@ class SwipeDeck extends Component {
     }
 
     return data.map((item, index) => {
-      if (deckIndex > index) {
+      if (index < deckIndex) {
         return null;
       }
+
       if (index === deckIndex) {
         return (
           <Animated.View
             {...this.panResponder.panHandlers}
-            style={[
-              this.getCardStyle(),
-              styles.cardStyle,
-              { zIndex: index * -1 },
-            ]}
+            style={this.getCurrentCardStyle()}
             key={item.id}
           >
             {renderCard(item)}
@@ -127,10 +139,7 @@ class SwipeDeck extends Component {
       return (
         <Animated.View
           key={item.id}
-          style={[
-            styles.cardStyle,
-            { zIndex: index * -1 },
-          ]}
+          style={this.getNextCardStyle(index)}
         >
           {renderCard(item)}
         </Animated.View>
@@ -139,7 +148,13 @@ class SwipeDeck extends Component {
   }
 
   render() {
-    return <View>{this.renderCards()}</View>;
+    const { deckStyle } = this.props;
+
+    return (
+      <View style={deckStyle}>
+        {this.renderListCards()}
+      </View>
+    );
   }
 }
 
