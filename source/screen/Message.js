@@ -5,12 +5,12 @@ import {
   Text,
 } from 'react-native';
 
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default class Home extends Component {
   static navigationOptions = {
     tabBarIcon: ({ focused }) => {
-      const iconName = 'message-text';
+      const iconName = 'chat';
 
       return (
         <Icon
