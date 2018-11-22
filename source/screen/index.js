@@ -26,6 +26,7 @@ const RootNavigator = createMaterialTopTabNavigator({
   MessageScreen: Messenge,
 }, {
   initialRouteName: 'Home',
+  lazy: true,
   tabBarOptions: {
     style: styles.tabBar,
     indicatorStyle: styles.indicator,

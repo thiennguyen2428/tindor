@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Platform,
   TouchableOpacity,
 } from 'react-native';
 
@@ -18,7 +17,7 @@ import SwipeDeck from '../components/SwipeDeck';
 
 import logoConfig from '../assets/iconConfig/logo.json';
 import data from '../mocks/userData';
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../utils';
+import { SHADOW_STYLE } from '../utils';
 
 const CustomIcon = createIconSetFromFontello(logoConfig);
 const styles = StyleSheet.create({
@@ -29,28 +28,13 @@ const styles = StyleSheet.create({
   },
   deckContainer: {
     flex: 7,
+    ...SHADOW_STYLE,
   },
-  buttonContainer: {
+  buttonsWrapper: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
-  },
-  cardContainer: {
-    ...StyleSheet.absoluteFillObject,
-    width: SCREEN_WIDTH,
-    height: 4 * SCREEN_HEIGHT / 5,
-    padding: 5,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 10 },
-        shadowOpacity: 0.2,
-      },
-      android: {
-        elevation: 5,
-      },
-    }),
   },
   bigButton: {
     height: 60,
@@ -59,16 +43,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 10 },
-        shadowOpacity: 0.2,
-      },
-      android: {
-        elevation: 5,
-      },
-    }),
+    ...SHADOW_STYLE,
   },
   smallButton: {
     height: 40,
@@ -77,16 +52,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 10 },
-        shadowOpacity: 0.2,
-      },
-      android: {
-        elevation: 5,
-      },
-    }),
+    ...SHADOW_STYLE,
   },
 });
 
@@ -107,7 +73,7 @@ export default class Home extends Component {
 
   renderCard = item => (
     <UserCard
-      image={item.image}
+      item={item}
     />
   );
 
@@ -129,7 +95,7 @@ export default class Home extends Component {
           renderCard={item => this.renderCard(item)}
           renderNoMoreCard={() => this.renderNoMoreCard()}
         />
-        <View style={styles.buttonContainer}>
+        <View style={styles.buttonsWrapper}>
           <TouchableOpacity style={styles.smallButton}>
             <SimpleLineIcons name="reload" color="#FFB903" size={25} />
           </TouchableOpacity>

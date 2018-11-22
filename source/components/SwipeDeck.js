@@ -3,11 +3,10 @@ import {
   View,
   Animated,
   PanResponder,
-  UIManager,
-  LayoutAnimation,
+  StyleSheet,
 } from 'react-native';
 
-import { SCREEN_WIDTH } from '../utils';
+import { SCREEN_WIDTH, SCREEN_HEIGHT, SHADOW_STYLE } from '../utils';
 
 const SWIPE_THRESHOLD = SCREEN_WIDTH / 2;
 const SWIPE_OUT_DURATION = 375;
@@ -37,14 +36,6 @@ class SwipeDeck extends Component {
         }
       },
     });
-  }
-
-  componentWillUpdate() {
-    // eslint-disable-next-line no-unused-expressions
-    UIManager.setLayoutAnimationEnabledExperimental
-      && UIManager.setLayoutAnimationEnabledExperimental(true);
-
-    LayoutAnimation.spring();
   }
 
   onSwipeComplete(direction) {
@@ -81,22 +72,24 @@ class SwipeDeck extends Component {
 
   getNextCardStyle(index) {
     const { cardStyle } = this.props;
+    const { deckIndex } = this.state;
+    const factor = 1 / (index - deckIndex);
     const opacity = this.position.x.interpolate({
       inputRange: [-SWIPE_THRESHOLD, 0, SWIPE_THRESHOLD],
-      outputRange: [1, 0, 1],
+      outputRange: [1 * factor, 0, 1 * factor],
       extrapolate: 'clamp',
     });
     const scale = this.position.x.interpolate({
       inputRange: [-SWIPE_THRESHOLD, 0, SWIPE_THRESHOLD],
-      outputRange: [1, 0.8, 1],
+      outputRange: [1 * factor, 0.8 * factor, 1 * factor],
       extrapolate: 'clamp',
     });
 
     return [
       cardStyle,
       {
-        zIndex: index * -1,
         opacity,
+        zIndex: index * -1,
         transform: [{ scale }],
       },
     ];
@@ -138,8 +131,8 @@ class SwipeDeck extends Component {
 
       return (
         <Animated.View
-          key={item.id}
           style={this.getNextCardStyle(index)}
+          key={item.id}
         >
           {renderCard(item)}
         </Animated.View>
@@ -161,6 +154,13 @@ class SwipeDeck extends Component {
 SwipeDeck.defaultProps = {
   onSwipeRight: () => {},
   onSwipeLeft: () => {},
+  cardStyle: {
+    ...StyleSheet.absoluteFillObject,
+    width: SCREEN_WIDTH,
+    height: 4 * SCREEN_HEIGHT / 5,
+    padding: 5,
+    ...SHADOW_STYLE,
+  },
 };
 
 export default SwipeDeck;
