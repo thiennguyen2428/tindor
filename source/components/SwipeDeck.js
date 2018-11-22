@@ -9,7 +9,7 @@ import {
 import { SCREEN_WIDTH, SCREEN_HEIGHT, SHADOW_STYLE } from '../utils';
 
 const SWIPE_THRESHOLD = SCREEN_WIDTH / 2;
-const SWIPE_OUT_DURATION = 375;
+const SWIPE_OUT_DURATION = 200;
 
 class SwipeDeck extends Component {
   constructor(props) {
@@ -21,6 +21,7 @@ class SwipeDeck extends Component {
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (event, gesture) => {
         Animated.spring(this.position, {
+          speed: 30,
           toValue: { x: gesture.dx, y: gesture.dy },
         }).start();
       },
@@ -32,6 +33,8 @@ class SwipeDeck extends Component {
         } else {
           Animated.spring(this.position, {
             toValue: { x: 0, y: 0 },
+            speed: 15,
+            bounciness: 0,
           }).start();
         }
       },
@@ -56,7 +59,7 @@ class SwipeDeck extends Component {
     const { cardStyle } = this.props;
     const rotate = this.position.x.interpolate({
       inputRange: [-SWIPE_THRESHOLD, 0, SWIPE_THRESHOLD],
-      outputRange: ['-10deg', '0deg', '10deg'],
+      outputRange: ['10deg', '0deg', '-10deg'],
       extrapolate: 'clamp',
     });
 
@@ -81,7 +84,7 @@ class SwipeDeck extends Component {
     });
     const scale = this.position.x.interpolate({
       inputRange: [-SWIPE_THRESHOLD, 0, SWIPE_THRESHOLD],
-      outputRange: [1 * factor, 0.8 * factor, 1 * factor],
+      outputRange: [1 * factor, 0.95 * factor, 1 * factor],
       extrapolate: 'clamp',
     });
 
