@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
 export default {
-  user: [
+  listCards: [
     {
       id: '1',
       name: 'Khánh',
@@ -123,7 +123,7 @@ export default {
       image: require('../assets/images/image15.jpg'),
     },
   ],
-  matches: [
+  newMatches: [
     {
       id: '1',
       name: 'Khánh',
@@ -234,4 +234,10 @@ export default {
       image: require('../assets/images/image14.jpg'),
     },
   ],
+  user: {
+    id: '248',
+    name: 'Nguyễn Thiện',
+    age: 22,
+    image: require('../assets/images/UserAvatar.jpg'),
+  },
 };
