@@ -1,6 +1,10 @@
 {
   "name": "Tindor",
-  "rnpm": { "assets": [ "source/asserts/fonts" ] },
+  "rnpm": {
+    "assets": [
+      "source/asserts/fonts"
+    ]
+  },
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -17,7 +21,8 @@
     "react-redux": "^5.1.1",
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "rn-viewpager": "^1.2.9"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
