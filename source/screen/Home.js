@@ -89,7 +89,7 @@ export default class Home extends Component {
     return (
       <View style={styles.container}>
         <SwipeDeck
-          data={data.user}
+          data={data.listCards}
           deckStyle={styles.deckContainer}
           cardStyle={styles.cardContainer}
           renderCard={item => this.renderCard(item)}

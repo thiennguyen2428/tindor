@@ -88,7 +88,7 @@ export default class Home extends Component {
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
-            data={mockData.matches}
+            data={mockData.newMatches}
             keyExtractor={item => item.id}
             renderItem={({ item }) => (
               <AvatarImg

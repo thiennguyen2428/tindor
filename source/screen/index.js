@@ -35,6 +35,7 @@ const RootNavigator = createMaterialTopTabNavigator({
     showIcon: true,
   },
   swipeEnabled: false,
+  animationEnabled: false,
 });
 
 export default RootNavigator;
