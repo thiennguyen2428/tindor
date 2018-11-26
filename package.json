@@ -16,13 +16,13 @@
     "react": "16.6.1",
     "react-native": "0.57.5",
     "react-native-elements": "^0.19.1",
+    "react-native-snap-carousel": "^3.7.5",
     "react-native-vector-icons": "^6.1.0",
     "react-navigation": "^2.18.2",
     "react-redux": "^5.1.1",
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0",
-    "redux-thunk": "^2.3.0",
-    "rn-viewpager": "^1.2.9"
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
