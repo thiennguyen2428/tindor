@@ -65,6 +65,18 @@ export default class Home extends Component {
     ),
   }
 
+  constructor(props) {
+    super(props);
+
+    this.onPressItem = this.onPressItem.bind(this);
+  }
+
+  onPressItem() {
+    const { navigation } = this.props;
+
+    navigation.navigate('MessageComposer');
+  }
+
   render() {
     return (
       <ScrollView
@@ -93,6 +105,7 @@ export default class Home extends Component {
                 imgSrc={item.image}
                 isOnline={item.isOnline}
                 title={item.name}
+                onPress={this.onPressItem}
               />
             )}
           />
@@ -111,6 +124,7 @@ export default class Home extends Component {
                 unread={item.unread}
                 titleMessage={item.name}
                 lastestMessage={item.lastestMessage}
+                onPress={this.onPressItem}
               />
             )}
           />

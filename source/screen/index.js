@@ -1,11 +1,13 @@
 import { StyleSheet } from 'react-native';
 import {
   createMaterialTopTabNavigator,
+  createStackNavigator,
 } from 'react-navigation';
 
 import Home from './Home';
 import Profile from './Profile';
-import Messenge from './Message';
+import Message from './Message';
+import MessageComposer from './MessageComposer';
 
 import { TAB_BAR_HEIGHT } from '../utils';
 
@@ -22,10 +24,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const RootNavigator = createMaterialTopTabNavigator({
+const TabNavigation = createMaterialTopTabNavigator({
   ProfileScreen: Profile,
   Home,
-  MessageScreen: Messenge,
+  MessageScreen: Message,
 }, {
   initialRouteName: 'Home',
   tabBarOptions: {
@@ -40,4 +42,17 @@ const RootNavigator = createMaterialTopTabNavigator({
   animationEnabled: false,
 });
 
-export default RootNavigator;
+const RootNavigation = createStackNavigator({
+  TabNavigation: {
+    screen: TabNavigation,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  MessageComposer,
+}, {
+  initialRouteName: 'TabNavigation',
+});
+
+
+export default RootNavigation;
