@@ -39,6 +39,7 @@ class AvatarImg extends Component {
       imgSize,
       title,
       isOnline,
+      onPress,
     } = this.props;
 
     const cicrleStyle = { width: imgSize, height: imgSize, borderRadius: imgSize / 2 };
@@ -51,7 +52,10 @@ class AvatarImg extends Component {
     ];
 
     return (
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity
+        onPress={() => onPress()}
+        style={styles.container}
+      >
         <View style={cicrleStyle}>
           <Image
             style={imgStyle}

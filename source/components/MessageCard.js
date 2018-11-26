@@ -40,12 +40,15 @@ class MessageCard extends Component {
       unread,
       titleMessage,
       lastestMessage,
+      onPress,
     } = this.props;
 
     const unreadMessageStyle = unread ? { fontWeight: 'bold' } : {};
 
     return (
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => onPress()}
+      >
         <View style={styles.container}>
           <AvatarImg
             imgSrc={avatarSrc}
