@@ -7,8 +7,8 @@ import {
   StyleSheet,
   FlatList,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import Icon from '../components/VectorIcon';
 import MessageCard from '../components/MessageCard';
 import AvatarImg from '../components/AvatarImg';
 
@@ -55,17 +55,14 @@ const styles = StyleSheet.create({
 
 export default class Home extends Component {
   static navigationOptions = {
-    tabBarIcon: ({ focused }) => {
-      const iconName = 'chat';
-
-      return (
-        <Icon
-          name={iconName}
-          size={30}
-          style={focused ? { color: '#fe5068' } : { color: '#dadfe6' }}
-        />
-      );
-    },
+    tabBarIcon: ({ focused }) => (
+      <Icon
+        type="MaterialIcons"
+        name="chat"
+        size={30}
+        style={focused ? { color: '#fe5068' } : { color: '#dadfe6' }}
+      />
+    ),
   }
 
   render() {

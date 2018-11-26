@@ -5,14 +5,13 @@ import {
   StyleSheet,
   Text,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import { IndicatorViewPager, PagerDotIndicator } from 'rn-viewpager';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
 
+import Icon from '../components/VectorIcon';
 import AvatarImg from '../components/AvatarImg';
 
 import data from '../mocks/userData';
-import { SHADOW_STYLE } from '../utils';
+import { SCREEN_WIDTH, SHADOW_STYLE } from '../utils';
 
 const styles = StyleSheet.create({
   container: {
@@ -58,6 +57,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  bannerWrapper: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  bannerTitleWrapper: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  bannerTitle: {
+    fontSize: 20,
+    paddingHorizontal: 10,
+    fontWeight: 'bold',
+    color: '#474747',
+  },
   tindorPlusButtonWrapper: {
     flex: 1,
     justifyContent: 'center',
@@ -80,21 +97,65 @@ const styles = StyleSheet.create({
 
 export default class Home extends Component {
   static navigationOptions = {
-    tabBarIcon: ({ focused }) => {
-      const iconName = 'account-circle';
+    tabBarIcon: ({ focused }) => (
+      <Icon
+        type="MaterialIcons"
+        name="account-circle"
+        size={30}
+        style={focused ? { color: '#fe5068' } : { color: '#dadfe6' }}
+      />
+    ),
+  }
 
-      return (
-        <Icon
-          name={iconName}
-          size={30}
-          style={focused ? { color: '#fe5068' } : { color: '#dadfe6' }}
-        />
-      );
-    },
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      carouselPageIndex: 0,
+    };
+  }
+
+
+  renderCarouselItem = (item) => {
+    const {
+      iconType,
+      iconName,
+      size,
+      color,
+      title,
+      subtitle,
+      id,
+    } = item;
+
+    return (
+      <View style={styles.bannerWrapper} hey={id}>
+        <View style={styles.bannerTitleWrapper}>
+          <Icon type={iconType} name={iconName} size={size} color={color} />
+          <Text style={styles.bannerTitle}>{title}</Text>
+        </View>
+        {
+          subtitle
+            ? <Text style={styles.userButtonTitle}>{subtitle}</Text>
+            : <View />
+        }
+      </View>
+    );
+  }
+
+  renderCarouselPaging = () => {
+    const { carouselPageIndex } = this.state;
+
+    return (
+      <Pagination
+        dotsLength={data.tindorPlusAds.length}
+        activeDotIndex={carouselPageIndex}
+      />
+    );
   }
 
   render() {
     const { user } = data;
+    const { carouselPageIndex } = this.state;
     const imgTitle = `${data.user.name}, ${data.user.age}`;
 
     return (
@@ -109,13 +170,13 @@ export default class Home extends Component {
           <View style={styles.userButtonGroup}>
             <View style={[styles.userButtonWrapper, { borderRightWidth: 1, borderColor: '#DADFE6' }]}>
               <TouchableOpacity style={styles.userButton}>
-                <Icon size={30} name="settings" color="#DADFE6" />
+                <Icon type="MaterialIcons" size={30} name="settings" color="#DADFE6" />
               </TouchableOpacity>
               <Text style={styles.userButtonTitle}>Settings</Text>
             </View>
             <View style={styles.userButtonWrapper}>
               <TouchableOpacity style={styles.userButton}>
-                <MaterialIcon size={30} name="mode-edit" color="#DADFE6" />
+                <Icon type="MaterialIcons" size={30} name="mode-edit" color="#DADFE6" />
               </TouchableOpacity>
               <Text style={styles.userButtonTitle}>Edit</Text>
             </View>
@@ -123,26 +184,28 @@ export default class Home extends Component {
         </View>
         <View style={styles.tindorPlusArea}>
           <View style={{ flex: 2 }}>
-            <IndicatorViewPager
-              autoPlayEnable
+            <Carousel
               style={{ flex: 1 }}
-              autoPlayInterval={1000}
-              indicator={<PagerDotIndicator pageCount={3} />}
-            >
-              <View style={{ backgroundColor: 'cadetblue' }}>
-                <Text>page one</Text>
-              </View>
-              <View style={{ backgroundColor: 'cornflowerblue' }}>
-                <Text>page two</Text>
-              </View>
-              <View style={{ backgroundColor: '#1AA094' }}>
-                <Text>page three</Text>
-              </View>
-            </IndicatorViewPager>
+              autoplayDelay={300}
+              autoplayInterval={2000}
+              data={data.tindorPlusAds}
+              renderItem={({ item }) => this.renderCarouselItem(item)}
+              onBeforeSnapToItem={index => this.setState({ carouselPageIndex: index })}
+              sliderWidth={SCREEN_WIDTH}
+              itemWidth={SCREEN_WIDTH}
+              loopClonesPerSide={data.tindorPlusAds.length}
+              autoplay
+              loop
+            />
+            {this.renderCarouselPaging()}
           </View>
           <View style={styles.tindorPlusButtonWrapper}>
             <TouchableOpacity style={styles.tindorPlusButton}>
-              <Text style={styles.tindorPlusTitle}>Your Tinder Plus</Text>
+              {
+                carouselPageIndex === 0
+                  ? <Text style={[styles.tindorPlusTitle, { color: '#FFB903' }]}>Get Tinder Gold</Text>
+                  : <Text style={styles.tindorPlusTitle}>My Tinder Plus</Text>
+              }
             </TouchableOpacity>
           </View>
         </View>

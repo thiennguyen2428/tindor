@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { createMaterialTopTabNavigator } from 'react-navigation';
+import {
+  createMaterialTopTabNavigator,
+} from 'react-navigation';
 
 import Home from './Home';
 import Profile from './Profile';
@@ -26,7 +28,6 @@ const RootNavigator = createMaterialTopTabNavigator({
   MessageScreen: Messenge,
 }, {
   initialRouteName: 'Home',
-  lazy: true,
   tabBarOptions: {
     style: styles.tabBar,
     indicatorStyle: styles.indicator,
@@ -35,6 +36,7 @@ const RootNavigator = createMaterialTopTabNavigator({
     showIcon: true,
   },
   swipeEnabled: false,
+  lazy: true,
   animationEnabled: false,
 });
 
