@@ -244,7 +244,7 @@ export default {
     {
       id: '1',
       title: 'Get Tinder Gold',
-      subtitle: 'Review who like you & more features',
+      subtitle: 'Review who liked you & more features',
       color: '#FFB903',
       iconType: 'CustomIcon',
       iconName: 'tinder',
@@ -252,7 +252,7 @@ export default {
     },
     {
       id: '2',
-      title: 'Get Matches faster by boost feature',
+      title: 'Get matches faster by Boost',
       color: '#8049C7',
       iconType: 'FontAwesome',
       iconName: 'angle-double-up',
@@ -279,7 +279,7 @@ export default {
     {
       id: '5',
       title: 'You mean swipe right',
-      subtitle: 'Get unlimited turn back with Tinder Plus',
+      subtitle: 'Get unlimited reload with Tinder Plus',
       color: '#FFB903',
       iconType: 'SimpleLineIcons',
       iconName: 'reload',
