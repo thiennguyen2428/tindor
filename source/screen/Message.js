@@ -71,10 +71,10 @@ export default class Home extends Component {
     this.onPressItem = this.onPressItem.bind(this);
   }
 
-  onPressItem() {
+  onPressItem(data) {
     const { navigation } = this.props;
 
-    navigation.navigate('MessageComposer');
+    navigation.navigate('MessageComposer', { data });
   }
 
   render() {
@@ -105,7 +105,7 @@ export default class Home extends Component {
                 imgSrc={item.image}
                 isOnline={item.isOnline}
                 title={item.name}
-                onPress={this.onPressItem}
+                onPress={() => this.onPressItem(item)}
               />
             )}
           />
@@ -124,7 +124,7 @@ export default class Home extends Component {
                 unread={item.unread}
                 titleMessage={item.name}
                 lastestMessage={item.lastestMessage}
-                onPress={this.onPressItem}
+                onPress={() => this.onPressItem(item)}
               />
             )}
           />
