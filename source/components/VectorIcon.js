@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { createIconSetFromFontello } from 'react-native-vector-icons'; 
+import { createIconSetFromFontello } from 'react-native-vector-icons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Entypo from 'react-native-vector-icons/Entypo';

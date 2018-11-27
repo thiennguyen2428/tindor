@@ -40,6 +40,7 @@ class AvatarImg extends Component {
       title,
       isOnline,
       onPress,
+      hideStatusDot,
     } = this.props;
 
     const cicrleStyle = { width: imgSize, height: imgSize, borderRadius: imgSize / 2 };
@@ -62,7 +63,9 @@ class AvatarImg extends Component {
             source={imgSrc}
             resizeMode="cover"
           />
-          <View style={statusDotStyle} />
+          {
+            hideStatusDot ? <View /> : <View style={statusDotStyle} />
+          }
         </View>
         {
           title !== '' ? <Text style={styles.titled}>{title}</Text> : <View />
@@ -77,7 +80,9 @@ AvatarImg.defaultProps = {
   imgSrc: require('../assets/images/AvatarImg.png'),
   imgSize: 78,
   title: 'User',
+  hideStatusDot: false,
   isOnline: false,
+  onPress: () => {},
 };
 
 export default AvatarImg;
